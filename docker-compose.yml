@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  ova-container:
+    container_name: container-app-yolov5
+    image: app-yolov5
+    build: 
+      context: .
+      dockerfile: Dockerfile-jetsonxavier
+    runtime: nvidia
+    volumes:
+      - /home/user/ova:/app/src/volumen
+    environment:
+      - VOL_PATH=/app/src/volumen
