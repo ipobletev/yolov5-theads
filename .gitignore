@@ -1,0 +1,13 @@
+# Workspace temps
+__pycache__
+!*.gitkeep
+.vscode
+
+#Test temps
+intemp
+streams.txt
+*.log
+.env
+rec
+temp_*
+test.py
