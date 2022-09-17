@@ -107,11 +107,10 @@ if __name__ == '__main__':
     LOGGER.info("Pytorch GPU count: " + str(torch.cuda.device_count()))
     LOGGER.info("Pytorch Cuda Available: " + str(torch.cuda.is_available()))
     LOGGER.info("---------------------------------------------")
-    LOGGER.info("OVA Disable: " + str(userconfig.DISABLE_OVA))
+    LOGGER.info("OVA Disable: " + str(userconfig.DISABLE_DEVICE))
     LOGGER.info("Save log file: " + str(userconfig.ENABLE_LOG_FILE))
     LOGGER.info("Send to cloud: " + str(userconfig.ENABLE_SENDTO_CLOUD))
-    LOGGER.info("NVR Distorsion: " + str(userconfig.ENABLE_ANALYSIS_NVR_DISTORSION))
-    LOGGER.info("Send to product: " + str(not(userconfig.SEND_TO_DEVELOP_CLOUD)))
+    LOGGER.info("Send to product: " + str(not(userconfig.SEND_TO_DEVELOP)))
     LOGGER.info("---------------------------------------------")
     LOGGER.info("Device: " + str(userconfig.DEVICE_TYPE))
     LOGGER.info("Device ID: " + str(userconfig.DEVICE_ID))
@@ -126,17 +125,16 @@ if __name__ == '__main__':
             LOGGER.error(" NO CAMERA DEVICE ADDED or OVA was disable. Change sensors.txt and reboot")
             while True:
                 pass
-    if (len(userconfig.STREAM_LIST)==0 or (userconfig.DISABLE_OVA == True)):
+    if (len(userconfig.STREAM_LIST)==0 or (userconfig.DISABLE_DEVICE == True)):
         LOGGER.error(" NO CAMERA DEVICE ADDED or OVA was disable. Change sensors.txt and reboot")
         while True:
             pass
-        
+    
     # creating multiprocessing Queue 
     queue_data = Queue()
     
     # Thread for consumer (Send data to cloud)
     sendData_toCloud = Process(name='data_sendToCloud',target=sendData_process,args=(queue_data,))
-    sendData_toCloud.setDaemon(True)
     sendData_toCloud.start()
 
     # Thread for producer (Image processing)
