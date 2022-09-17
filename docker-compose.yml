@@ -1,7 +1,9 @@
 version: '3.7'
 services:
   ova-container:
-    container_name: container-app-yolov5
+    container_name: container-yolov5
+    #platform: linux/arm64/v8
+    platform: linux/amd64
     image: app-yolov5
     build: 
       context: .

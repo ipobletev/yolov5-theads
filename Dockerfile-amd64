@@ -1,0 +1,15 @@
+# Import python
+FROM nvidia/cuda:11.7.1-devel-ubuntu20.04
+
+# Folder to save data in other machine
+WORKDIR /app
+
+# Folder from host to image container (/app)
+COPY . .
+
+RUN pip3 install -r requirements.txt
+
+# Change execution python folder
+WORKDIR /app/src
+
+CMD ["python3", "app.py"]
