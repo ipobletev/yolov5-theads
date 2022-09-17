@@ -32,42 +32,31 @@ SENSOR_TYPE = os.getenv('SENSOR_TYPE', 'CAMERA')
 ##### Platform ##############################
 #############################################
 
-#Path for modules
+# Path for modules
 PYTHONPATH = os.getenv('PYTHONPATH', '')
 if(PYTHONPATH==''):
     PYTHONPATH=os.getcwd() + '/modules'
 
-#NVR distorsion
-ENABLE_ANALYSIS_NVR_DISTORSION = (os.getenv('ENABLE_ANALYSIS_NVR_DISTORSION', 'False') == 'True')
-NVR_DISTORSION = float(os.getenv('NVR_DISTORSION', '0.7'))
+# Disable program
+DISABLE_DEVICE = (os.getenv('DISABLE_DEVICE', 'False') == 'True')
 
-#disable program
-DISABLE_OVA = (os.getenv('DISABLE_OVA', 'False') == 'True')
-
-# Test
-ENABLE_DEV = (os.getenv('ENABLE_DEV', 'False') == 'True')
+# LOG
 ENABLE_LOG_FILE = (os.getenv('ENABLE_LOG_FILE', 'False') == 'True')
 
 # Platform
-VM_GUI = (os.getenv('VM_GUI', 'False') == 'True')
+ENABLE_GUI = (os.getenv('ENABLE_GUI', 'False') == 'True')
 
 # Enable sends
 ENABLE_SENDTO_CLOUD = (os.getenv('ENABLE_SENDTO_CLOUD', 'True') == 'True')
-ENABLE_SENDTO_GPU = (os.getenv('ENABLE_SENDTO_GPU', 'True') == 'True')
+SEND_TO_DEVELOP = (os.getenv('ENABLE_SENDTO_CLOUD', 'False') == 'True')
 
 # Reescale image
 REESCALE_IMAGE_CLOUD = (0,0)
 REESCALE_IMAGE_RAW_CLOUD  = (0,0)
 REESCALE_IMAGE_GPU = (0,0)
 
-# Attempt to recconect to camera
-ATTEMPT_CAMERAS = 3
-
-# Seconds ti send raw imagen to roi cloud.
-TIME_SEND_ROIMAGE_TOCLOUD = int(os.getenv('TIME_SEND_DAILYIMAGE_TOCLOUD', '43200'))
-
-# Out temp
-PATH_OUTEMP=os.getenv('PATH_OUTEMP', 'temp')
+# OutTemp
+PATH_OUTEMP = os.getenv('PATH_OUTEMP', 'temp')
 
 # Time each time to processing each stream image
 TIME_SECUENCE_TOPROCESING_IMAGEN = int(os.getenv('TIME_SECUENCE_TOPROCESING_IMAGEN', '5'))
@@ -83,16 +72,12 @@ STREAM_LIST = []
 with open(STREAMSTXT_PATH, "r") as myfile:
    total_streams = sum(1 for line in myfile)
 
-USE_DIRECT_UUID = (os.getenv('USE_DIRECT_UUID', 'False') == 'True')
 with open(STREAMSTXT_PATH, "r") as myfile:   
     for i in range(total_streams):
         raw_text = myfile.readline()
         x = raw_text.split(",")
 
-        if(USE_DIRECT_UUID==True):
-            id_uuid = str(x[0])
-        if(USE_DIRECT_UUID==False):
-            id_uuid = gen_uuid(str(x[0]))
+        id_uuid = gen_uuid(str(x[0]))
 
         STREAM_LIST.append({i : {}})
         STREAM_LIST[i] = {
