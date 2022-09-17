@@ -2,6 +2,7 @@
 __pycache__
 !*.gitkeep
 .vscode
+myvenv
 
 #Test temps
 intemp
